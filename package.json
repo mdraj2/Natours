@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.4",
     "cross-env": "^6.0.3",
     "dotenv": "^8.2.0",
     "eslint-plugin-react-hooks": "^1.7.0",

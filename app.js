@@ -6,6 +6,8 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
+const cookieParser = require('cookie-parser');
+
 const AppError = require('./utils/appError.js');
 const globalErrorhandler = require('./controllers/errorController.js');
 const tourRouter = require('./routes/tourRoutes.js');
@@ -35,6 +37,7 @@ const limiter = rateLimit({
 app.use('/api', limiter);
 /* To parse JSON strings */
 app.use(express.json({ limit: '10kb' }));
+app.use(cookieParser());
 /* If any paths match this route we will send static pages */
 
 //filters out all the dollar signs and dots
@@ -63,6 +66,7 @@ app.use((res, req, next) => {
 });
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
+  console.log(req.cookies);
   next();
 });
 
