@@ -1,0 +1,3 @@
+# Lecture 84
+
+Mongoose is all about models. It is a blueprint that we use to create documents. It is like classes in javascript. We also use models to perform the CRUD operations.

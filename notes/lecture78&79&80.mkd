@@ -1,0 +1,9 @@
+# Lecture 78 & 79 &80: Using Compass and atlas
+
+Using compass is intutive.
+
+Atlas is a hosted database. A cluster is an instance of our database
+
+The database password and credital need to be stored in the config.env file.
+We now need a connection method .For this we will use the MongoDB Compass.
+You will need to take the connection string and place it in compass

@@ -1,0 +1,36 @@
+# Lecture80 Connecting Our Database with Express App
+
+In this lecture we will connect our MongoDB sever with our application. We update the config file. We get our string from MongoDB, and save it in our config file. Note that this string are
+
+DATABASE = mongodb+srv://mdraj2:<PASSWORD>@cluster0-ljpze.mongodb.net/natours?retryWrites=true&w=majority
+
+The <PASSWORD> will be replaced in the sever.js. This is the code in the server.js file
+
+    const DB = process.env.DATABASE.replace(
+    '<PASSWORD>',
+    process.env.DATABASE_PASSWORD
+    );
+
+Note that we change the /test to /natours database.
+
+The localdata base is
+
+DATABASE_LOCAL = mongodb://localhost:27017/natours
+For the local sever to work the mongod needs to be run in the background
+
+Mongoose is MongoDB drivers.
+
+We will go to the server.js where all the setup is happening. it is where mongodb will be configured.
+
+    mongoose
+    .connect(DB, {
+        useNewUrlParser: true,
+        useCreateIndex: true,
+        useFindAndModify: false,
+        useUnifiedTopology: true
+    })
+    .then(() => console.log('DB connection sucessful'));
+
+The object that is passed into the mongoose.connect method is just to stop the deprecated warnings. The method will return a promise. We handle that promise using then method.
+
+if you wanted the local one then you would replace the DB variable with process.env.DATABASE_LOCAL

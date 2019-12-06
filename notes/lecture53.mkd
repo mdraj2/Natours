@@ -1,0 +1,49 @@
+# Lecture 53: Handling Post Requests
+
+We will begin by adding a route handler and so we will be using the post request handler. Note that the url will be the same however. 
+
+The thing with the post request is that we can send data from the client to the server. So this data will be avaiable on the req object.
+
+But the problem is that the body data is not in the req object. Apparently express just does not put this data. So we need to use something called middleware to access this. The only other time we used the req object was in NODEFARM where we used it to find the URL. 
+
+Now what is middleware? and how do you put it. Lets start with the how you use it. To use it put the following line of 
+
+    app.use(somefunction())
+
+Middleware is a function that can modify incoming request data. Middleware stands between the request and response. Hence it is a step that the request goes through while it is being processed.
+
+In this case. The middle ware express.JSON() exposes the body data to the req.body otherwise it will be undefined.
+
+Since we are making a new item in the we will need to mention what the id of the new data is going to be. But in reality this will be handled by the database.
+
+We use the following code to increase
+
+    const newId = tours[tours.length - 1].id + 1;
+
+Now that we have this newId we want to append it to the JSON from
+the req.body. To do this we use the following
+
+    const newTour = Object.assign({ id: newId }, req.body);
+
+Now the two objects will be combined
+
+We will update the tours variable with the following code
+
+    tours.push(newTour);
+
+Next we will write persist the data using the writeFile method which is an async operation. We dont want to block the event loop. We will be overwriting this file. The callback function is the tours variable which needs to be stringified. The callback function can take an arguement of err, but that does not mean that that is an error callback. It is a success call back, but you have acess to the err variable. Now we want to respond to the client. We have a status of 201 which mean a new resource has been made.  
+
+    fs.writeFile(
+        `${__dirname}/dev-data/data/tours-simple.json`,
+        JSON.stringify(tours),
+        err => {
+        res.status(201).json({
+            status: 'sucess',
+            data: {
+            tour: newTour
+            }
+        });
+        }
+    );
+
+Note that we cannot have more than one response. So res.send would not be allow with res.json.

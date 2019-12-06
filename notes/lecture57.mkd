@@ -1,0 +1,14 @@
+# Refactoring Our Routes
+
+This all about cleaning our routes. We will put the callback functions in their own functions. This way we know what the callback function is actually doing. Then we need to fix the routes. We are only using two routes really. So we use app.route(route). We will have two routes now. Next we will chain all the request methods available.
+
+    app
+    .route('/api/v1/tours')
+    .get(getAllTours)
+    .post(createTour);
+    
+    app
+    .route('/api/v1/tours/:id')
+    .get(getTour)
+    .patch(updateTour)
+    .delete(deleteTour);

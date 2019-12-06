@@ -1,0 +1,16 @@
+# Serving Static Files
+
+Static files are files that we cannot access them using our browser. For example we cannot the images or them html files in the public folder.
+
+    app.use('/api/v1/tours', tourRouter);
+    app.use('/api/v1/users', userRouter);
+
+are the only routes that are defined.
+
+NOte that we dont really need to serve static files because this is an api. But for the sake of the example we will go ahead and show
+
+    app.use(express.static(`${__dirname}/public`));
+
+Now if we want to access say the overview page it will be with the localhost:3000/overview.html
+
+The public folder will be automatically looked into if the url cannot be found and so you must specfify it from there

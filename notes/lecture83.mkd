@@ -1,0 +1,10 @@
+# Lecture 83
+
+Mongoose is an Object Data Modeling library for MongoDB and Node.js, a higher level of abstaction
+
+Mongoose is a data modelling library that will let us write javascript code that will then interact with a datbase. Some features are schemas to model data and relationships, easy data validation, simple query API, middleware, etc.
+
+A mongoose scheme is where we modeul our data, by describing the structure of the data, default values and validation.
+
+Mongoose model is a wrapper for the schema, providing and interface to the database for CRUD operations.
+

@@ -1,0 +1,42 @@
+# Lecture 67&68: Enviroment Variables
+
+Node applications can run in either production or development enviroment. Depending on the enviroment we might use different databases and really change the settings.
+
+enivorment variables are global variables that are used to define the enviroment that the app is running.
+
+You can access the node global enviroment variables using process.env.
+
+Now many packages in express depend on a special variable called NODE-ENV and it tells whether we are in production or development but express does not define this variable.
+
+You could do it with the terminal e.g NODE-ENV = development nodemon sever.js
+
+Sometimes we may need to change many of the enviroment variables and for that we will need a config file
+
+Now the question is how do we connect the config file to our application. You will use a npm package of dotenv.
+
+    dotenv.config({path:'./config.env'})
+
+This file will have
+
+    NODE_ENV=development
+    USERNAME=jonas
+    PASSWORD=1234
+    PORT=3000
+
+Now we will use this global variable. NOTE that this line must come before the require('./app') because otherwise the variables will be undefiend.
+
+if (process.env.NODE_ENV === 'development') {
+app.use(morgan('dev'));
+}
+
+is the code that was put into the app.js. Even though the config file was defined in the sever.js it the variables in the node enviroment is going to be the same regardless of the other files we enter.
+
+Finally we add the following scripts to
+"start:dev": "nodemon server.js",
+"start:prod": "NODE_ENV=production nodemon server.js"
+
+------------
+This is for setting up ESLINT and prettier
+
+npm i eslint prettier eslint-config-prettier eslint-plugin-prettier eslint-config-airbnb eslint-plugin-node eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react --save-dev
+

@@ -1,0 +1,9 @@
+# Lecture 58: Middleware and the Request-Response Cycle
+
+Start this cycle, our app will recieve a request when someone hit the sever. Then a request and response object will be made. That data will be processed and sent back. Middleware lies on the middle between the request object and the response.
+
+Middleware manipulates the request.
+
+In express everything is a middleware including the route. They are middleware that is run for certain routes.
+
+All the middlewares together is called the middlestack. The order is defined as they are written and the order matters alot. Each req and res goes through each middleware. At the end of the middleware the next function is called. The next middleware will be called until we reach the last middleware where the response is sent back. and this ends the Request-Response cycle

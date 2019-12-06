@@ -1,0 +1,45 @@
+# Lecture 51: Restful API
+
+An API (Aplication Programming Interface) is a piece of software that can be used by another piece of software, inorder to allow applications to talk to each other. 
+
+## WEB applications
+----------
+In this type of application we send data whenever the client requests it. Note that web api are not all just sending data or related to javascript.
+
+## APIs
+----------
+As long as the piece of software is standalone. For example the fs or the http are also APIs. They may sometimes be called the node APIs.
+
+DOM is a Javascript APIs
+
+Any public methods are also API because this data can be interacted with other software
+
+## REST ARCHITECTURES
+It stands for 'representational state transfer'
+. IT basically means making the API as logical for the user or the consumer because they will be the end users of the API. The way we do it is as follows
+
+1)  Seperate the API into logical resources 
+    -  A resource is an object or representation of something which has data associated with to it. Any information that can be name can be a resource. This could be tours, users, or reviews. Note the the name cannot be a verb (this is not allowed in the REST)
+2)  Expose structued, resource based URLs
+    -  Endpoints are the last piece on the url. They should only contain nouns, so it cannot have something like getTours. So Tours is fine  but the getTours is not 
+3)  Use the correct HTTP methods
+    -  There are 5 https methods. Note that for resources we want the name of the resource to be plural
+    -  We use the get method when we want to **read** data, but we still call the resource tours for example, not getTours.
+    -   if you want to create a new item then use the **post** method. 
+    -   If you want to update something through a page then you will use the **put** or **patch** method. **Put** request that client is supposed to send the entire object, but the **patch** is only to send the part that has been changed
+    -   Final method is delete if you to **delete** someting
+
+    These 5 methods will allow the client to perform the 4 basic CRUD operations. Sometimes actions may not be a particular resouce and not really operations either crud. This includes such as login and search, but we will need to be a bit more creative with our endpoints. 
+
+    Now how would we deal with something like perform
+    /getToursByUser -> We can make it GET /users/3/Tours
+
+4)  Send data as JSON
+    -  We need to do some response formatting before sending the JSON. This will require enveloping.
+
+
+5)  Be stateless
+    - This means that all the states are handled on the client not on the server. State is a piece of data that might change over time in the application. E.g loggedIn and currentPage. That means that all the information that is required to process on the server side. The server does not need to remember the previous request to process the current one. This concept is important in application design.
+
+
+

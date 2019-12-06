@@ -1,0 +1,5 @@
+# Lecture 101: Aggregation Pipeline: Matching and Grouping
+
+This is about the mongodb pipeline. It is useful for data aggreation. It is basically defining a pipeline that a certain document go through step by step to get aggregated results. It can be used to get maximum and minimum values.
+
+We defined a async function. We access the mongodb aggregation functions using mongoose. Tour.aggregates.

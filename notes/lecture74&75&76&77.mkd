@@ -1,0 +1,31 @@
+# CRUD: Operating in MongoDB
+
+Here we will explore creating documents at once
+
+db.tours.insertMany([{name:"xx", key:"xx"},{name:"xx" ,key:"kf, diff: "easy"}])
+
+to show all the documents the command is db.tours.find()
+
+If you want to find a certain document in the collection the you will pass a object (known as the filter) to the find method e.g {name:"The Forest Hiker"}. You will get all the documents that fit this filter function
+
+Now if you want find documents meeting a certain conditions you would need to do the following.
+db.tours.find({price: {$lte: 500}}). Basically you need to pass an object with $ appended to the command you want.
+
+Now if you want two search criteria (and statement)
+
+db.tours.find({price: {$lte: 500}, rating: {$gte: 4.8}})
+
+The or statement works like this
+
+db.tours.find({$or:[{price:{$lte: 500}}, {rating: {\$gte: 4.8}}]})
+
+There is also projects. It is the second arguement in the find method. Basically it will one field only e.g
+db.tours.find({$or:[{price:{$lte: 500}}, {rating: {\$gte: 4.8}}]}, {name:1});
+
+To update you need to use the updateOne() method on a collections. you pass in the filter and then your
+second arguement is another object with the \$set operator. You can also use the set property to add new fields
+aswell.
+
+You can replace as well.
+
+You can deleteOne and deleteMany awell.

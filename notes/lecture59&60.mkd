@@ -1,0 +1,28 @@
+# Lecture 59&60: Writing our own middleware functions
+
+app.use() is used to add middleware. To define our middleware function we need (res,req,next) => {}.
+
+next is the next function. You must call next always otherwise it will be stuck in that function. 
+
+The middleware we wrote is 
+
+    app.use((res,req,next) => {
+    console.log('Hello from the middleware');
+    next();
+    });
+
+And it will apply to each and every request because no route was specified. 
+
+Again note that the order of the middleware really maters. After you end the response cycle the next middleware will not be called. 
+
+This is middleware to add a time.
+
+    app.use((req, res,next) => {
+    req.requestTime = new Date().toISOString;
+    next();
+    });
+
+We used morgan middleware to get the request that was sent to the client e.g
+
+    GET /api/v1/tours 200 19.191 ms - 8811
+

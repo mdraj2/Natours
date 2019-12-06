@@ -1,0 +1,30 @@
+# Lecture 52: Handling GET Requests
+
+We will start by making the routes and specify the route handlers.
+
+    app.get('/api/v1/tours', (req, res) => {});
+
+It is good practice to specify the api version. If we want to make changes then we can make v2. 
+
+Now we want to read this file. And we do this before the app.get because we dont want it to run inside the event loop. 
+
+It will be loaded using
+
+    const tours = JSON.parse(
+        fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
+    );
+
+Next we update the app.get with the following code
+
+    app.get('/api/v1/tours', (req, res) => {
+        res.status(200).json({
+        status: 'sucess',
+        results: tours.length,
+        data: {
+            tours
+        }
+        });
+    });
+
+we will have the respond be a json so we used the json method instead of the send method. And we wrapped added a status of success and results which is the lenght of the tours data before ending it to the client
+

@@ -1,0 +1,11 @@
+# Lecture 65: Chaining multiple middleware functions
+
+Say that we want the http requests such as post to have multiple middleware? So how do we change them?
+We do it like this
+
+    router
+    .route('/')
+    .get(tourController.getAllTours)
+    .post(tourController.checkBody, tourController.createTour);
+
+Rhe checkBody method middleware will be applied before the createTours

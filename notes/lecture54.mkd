@@ -1,0 +1,48 @@
+# Lecture 54: Responding to URL Parameters
+
+Right now when we call our api. Which is 
+
+    127.0.0.1:3000/api/v1/tours
+
+We will be getting all the tours. But we do not want everything. For example we may only want the first or the second.
+
+Basically if we specify the endpoint again we should get only one of the items. This mean we will need a variable.
+
+We need to define a route that can accept a variable. How do we do this? In express you would use :/ on the path.
+
+    '/api/v1/tours/:id'
+
+So anything after : is a variable
+
+To get access to the variables we use req.params.
+
+What if we have optional parameters? Then it would require a ? mark.
+
+    '/api/v1/tours/:id/:x?'
+
+The code is as follows
+
+    app.get('/api/v1/tours/:id', (req, res) => {
+    const id = req.params.id * 1;
+    const tour = tours.find(el => el.id === id);
+    res.status(200).json({
+        status: 'success',
+        data: {
+        tour
+        }
+    });
+    });
+
+Multipling by one will make the string into a number and the find method will return the first case that turns out to be true.
+
+We also test if the id is actaully going to be present or not. If it is not going to be present then this is how we do it
+
+  const id = req.params.id * 1;
+  const tour = tours.find(el => el.id === id);
+  
+  if (!tour) {
+    return res.status(404).json({
+      status: 'fail',
+      message: 'Invalid ID'
+    });
+  }

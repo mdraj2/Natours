@@ -1,0 +1,3 @@
+# Lecture 60: Implementing the users routes
+
+In this lecture we made the users route. We return a 500 status

@@ -1,0 +1,12 @@
+# Lecture 64: Param middleware
+
+It is middleware that runs for certain parameters. The only parameter we have is the id. If that ID is present we will run that route. On our router we have the param method
+
+router.param('id',(req,res,next,val) =>{})
+
+The value is the fourth input which is the param method.
+
+Note that this route which is in the tourRouts.js will be affect the route from the usersRoutes. Remember that middleware is execute in the order they are sepecified. That means that the router.param is nearly the end.
+
+A very important note is that we want to avoid using small function calls. We should use the middleware stack as much as possible.
+

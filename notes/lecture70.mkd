@@ -1,0 +1,21 @@
+# Lecture 70: What is MongoDB
+
+IT is a NoSQL database. No SQL contains one or more collections. Each collection will contain a document.
+Each database will contain one or more collections. You can think of as a table equivalent in a relational 
+database. Each collection contains one or more documents. 
+
+Each document contains information about one entity. So it will contain something like the name,age,gender etc. 
+While the collection is the parent structure that contains all these entities. 
+
+Document based: MongoDB stores data in documents
+Scalable: Very easy to distribute data across multiple machines as your users and amount of data grows
+Flexiblity: No document data schema required, so each document can have different number and type of fields
+Performant: Embedded data models,indexing, sharding, flexible documents, native duplication etc
+
+It uses a dta format called BSON. It is like JSON but typed. That means it will have string, boolean, double etc. So MongoDB documents are typed.
+
+We also have embedded documents. This means realted data into a single document. This allows for quicker access and easier data models.
+
+Embedding/Denomalizing is to include related data into a single document. This allows for quick acesss and easier data models(it's not always the best solution however). In a relation database you would join a reference inorder to access the table data.
+
+The document size is 16mb at the moment in MongoDB. 

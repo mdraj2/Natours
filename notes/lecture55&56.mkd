@@ -1,0 +1,8 @@
+# Lecture 55&56: Handling PATCH Requests 
+We will be learning how to update data using the patch request.
+
+There are two ways to update data. That is either the patch or put method. With put the application expects the entire updated object. With patch it is only the properties that need to be updated. We will be working with patch. 
+
+We will not be implementing anything here. It is only for learning.
+
+For delete it is the same as patch. But we have a status for 204 and we dont send any data. We will send a null.

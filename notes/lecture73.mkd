@@ -1,0 +1,24 @@
+# Lecture 73: What is MongoDB
+
+Note that the default path of the data is going to be in data/db. This is default path in mongodb.
+
+To make a database we use the 'use' command. It is also used to switch into an already existing database.
+If the database does not exist then it will create a new database.
+
+We are making documents. But we first need to make the collection before making the documents.
+
+To make it db."nameofcollection".insertOne(). db stands for the current database.
+
+You pass in a BSON to the insertOne().
+
+To show the document use the command
+
+db.tours.find()
+
+note that when you create a document mongodb will make its own ids.
+
+show dbs will use all the databases.
+
+to show the collections in the database type the following command show collections
+
+you can run quit to exit the mongo shell
