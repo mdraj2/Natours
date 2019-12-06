@@ -29,7 +29,7 @@ const createSendToken = (user, statusCode, res) => {
   //select options are only applied in a query object
   user.password = undefined;
   res.status(statusCode).json({
-    stat: 'sucess',
+    stat: 'success',
     token,
     data: {
       user
@@ -101,6 +101,30 @@ exports.protect = catchAsync(async (req, res, next) => {
   }
   //Grant access to proctected route
   req.user = currentUser;
+  next();
+});
+
+exports.isLoggedIn = catchAsync(async (req, res, next) => {
+  if (req.cookies.jwt) {
+    const decoded = await promisify(jwt.verify)(
+      req.cookies.jwt,
+      process.env.JWT_SECRET
+    );
+    //3) Check if user still exists
+    const currentUser = await User.findById(decoded.id);
+
+    if (!currentUser) {
+      return next();
+    }
+    //4) Check if user changed passwrod after the toaken was issue
+    if (currentUser.changedPasswordAfter(decoded.iat)) {
+      return next();
+    }
+    //There is a logged in user
+    res.locals.user = currentUser;
+    //you can return
+    return next();
+  }
   next();
 });
 
