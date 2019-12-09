@@ -1,43 +1,42 @@
 /* eslint-disable */
-console.log('hello from the client side');
-const locations = JSON.parse(document.getElementById('map').dataset.locations);
-console.log(locations);
 
-mapboxgl.accessToken =
-  'pk.eyJ1IjoibWRyYWoyIiwiYSI6ImNrM3MxY3M1YzAwaHEzbnF2dmFqN2loNnAifQ.R8V-k-7eKGS_p8lgUqUF9A';
-var map = new mapboxgl.Map({
-  container: 'map',
-  style: 'mapbox://styles/mdraj2/ck3t97nql05b21cnivq2biu9o',
-  scrollZoom: false
-});
+export const displayMap = locations => {
+  mapboxgl.accessToken =
+    'pk.eyJ1IjoibWRyYWoyIiwiYSI6ImNrM3MxY3M1YzAwaHEzbnF2dmFqN2loNnAifQ.R8V-k-7eKGS_p8lgUqUF9A';
+  var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mdraj2/ck3t97nql05b21cnivq2biu9o',
+    scrollZoom: false
+  });
 
-const bounds = new mapboxgl.LngLatBounds();
+  const bounds = new mapboxgl.LngLatBounds();
 
-locations.forEach(loc => {
-  //Add marker
-  const el = document.createElement('div');
-  el.className = 'marker';
-  new mapboxgl.Marker({
-    element: el,
-    anchor: 'bottom'
-  })
-    .setLngLat(loc.coordinates)
-    .addTo(map);
+  locations.forEach(loc => {
+    //Add marker
+    const el = document.createElement('div');
+    el.className = 'marker';
+    new mapboxgl.Marker({
+      element: el,
+      anchor: 'bottom'
+    })
+      .setLngLat(loc.coordinates)
+      .addTo(map);
 
-  //
-  new mapboxgl.Popup({ offset: 30 })
-    .setLngLat(loc.coordinates)
-    .setHTML(`<p>Day ${loc.day}: ${loc.description} </p>`)
-    .addTo(map);
+    //
+    new mapboxgl.Popup({ offset: 30 })
+      .setLngLat(loc.coordinates)
+      .setHTML(`<p>Day ${loc.day}: ${loc.description} </p>`)
+      .addTo(map);
 
-  bounds.extend(loc.coordinates);
-});
+    bounds.extend(loc.coordinates);
+  });
 
-map.fitBounds(bounds, {
-  padding: {
-    top: 200,
-    bottom: 200,
-    left: 100,
-    right: 100
-  }
-});
+  map.fitBounds(bounds, {
+    padding: {
+      top: 200,
+      bottom: 200,
+      left: 100,
+      right: 100
+    }
+  });
+};
