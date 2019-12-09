@@ -104,29 +104,35 @@ exports.protect = catchAsync(async (req, res, next) => {
   next();
 });
 
-exports.isLoggedIn = catchAsync(async (req, res, next) => {
-  if (req.cookies.jwt) {
-    const decoded = await promisify(jwt.verify)(
-      req.cookies.jwt,
-      process.env.JWT_SECRET
-    );
-    //3) Check if user still exists
-    const currentUser = await User.findById(decoded.id);
-
-    if (!currentUser) {
+exports.isLoggedIn = async (req, res, next) => {
+  //not async because it will send to the global error middleware
+  try {
+    if (req.cookies.jwt) {
+      //this is will trigger any error if the decoded is not sucessful
+      const decoded = await promisify(jwt.verify)(
+        req.cookies.jwt,
+        process.env.JWT_SECRET
+      );
+      //3) Check if user still exists
+      const currentUser = await User.findById(decoded.id);
+  
+      if (!currentUser) {
+        return next();
+      }
+      //4) Check if user changed passwrod after the toaken was issue
+      if (currentUser.changedPasswordAfter(decoded.iat)) {
+        return next();
+      }
+      //There is a logged in user
+      res.locals.user = currentUser;
+      //you can return
       return next();
     }
-    //4) Check if user changed passwrod after the toaken was issue
-    if (currentUser.changedPasswordAfter(decoded.iat)) {
-      return next();
-    }
-    //There is a logged in user
-    res.locals.user = currentUser;
-    //you can return
+  } catch (err) {
     return next();
   }
   next();
-});
+};
 
 exports.restrictTo = (...roles) => {
   return (req, res, next) => {
@@ -211,6 +217,14 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   createSendToken(user, 200, res);
   //4) Log the user in, JWT
 });
+
+exports.logout = (req, res) => {
+  res.cookie('jwt', 'loggedout', {
+    expires: new Date(Date.now() + 10 * 1000),
+    httpOnly: true
+  });
+  res.status(200).json({ status: 'success' });
+};
 
 exports.updatePassword = catchAsync(async (req, res, next) => {
   //Get the user from the collection
