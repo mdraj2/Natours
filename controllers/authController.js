@@ -29,7 +29,7 @@ const createSendToken = (user, statusCode, res) => {
   //select options are only applied in a query object
   user.password = undefined;
   res.status(statusCode).json({
-    stat: 'success',
+    status: 'success',
     token,
     data: {
       user
