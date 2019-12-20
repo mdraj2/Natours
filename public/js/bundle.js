@@ -8291,6 +8291,7 @@ exports.showAlert = exports.hideAlert = void 0;
 var hideAlert = function hideAlert() {
   var el = document.querySelector('.alert');
   if (el) el.parentElement.removeChild(el);
+  location.reload(true);
 }; //type is 'success' or error
 
 
@@ -8347,7 +8348,7 @@ function () {
           case 3:
             res = _context.sent;
 
-            if (res.data.stat === 'success') {
+            if (res.data.status === 'success') {
               (0, _alerts.showAlert)('success', 'Logged in successfully');
               window.setTimeout(function () {
                 location.assign('/');
@@ -8827,12 +8828,14 @@ if (logOutBtn) logOutBtn.addEventListener('click', _login.logout); //Change user
 if (userDataForm) {
   userDataForm.addEventListener('submit', function (e) {
     e.preventDefault();
-    var email = document.getElementById('email').value;
+    var form = new FormData();
     var name = document.getElementById('name').value;
-    (0, _updateSettings.updateSettings)({
-      name: name,
-      email: email
-    }, 'data');
+    var email = document.getElementById('email').value;
+    var photo = document.getElementById('photo').files[0];
+    form.append('name', name);
+    form.append('email', email);
+    form.append('photo', photo);
+    (0, _updateSettings.updateSettings)(form, 'data');
   });
 }
 
@@ -8907,7 +8910,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50315" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56582" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -22,7 +22,13 @@ router.patch('/resetPassword/:token', authController.resetPassword);
 router.use(authController.protect);
 //All the below middleware will be called only if authenticed has been run
 router.patch('/updateMyPassword', authController.updatePassword);
-router.patch('/updateMe', userController.updateMe);
+//photo is the name of the field
+router.patch(
+  '/updateMe',
+  userController.uploadUserPhoto,
+  userController.resizeUserPhoto,
+  userController.updateMe
+);
 router.delete('/deleteMe', userController.deleteMe);
 //Rest says that the action does not have anything to do with the URL
 
